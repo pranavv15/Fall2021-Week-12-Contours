@@ -36,13 +36,13 @@
 
     const ctScan_data = "data/Data_CT.csv"; //  abstracted data file
     let svg = d3.select("svg");
-    // min max temperature read during 2018
-    const min_temp =0;
-    const max_temp = 3024;
+    // CT Scan data
+    const min =0;
+    const max = 3024;
     // path generator
     const path = d3.geoPath();
 
-    function plot_contour(fileName)
+    function plot_contour(fileName,min,max)
     {
         // Step 1 read csv file
         d3.csv(fileName).then(function (data)
@@ -57,18 +57,18 @@
                 values_T.push(+d[0])
             });
            
-            console.log(d3.range(min_temp,max_temp,
-                    parseInt(Math.abs(max_temp-min_temp)/6.5)))
+            console.log(d3.range(min,max,
+                    parseInt(Math.abs(max-min)/10)))
 
         //     /////////////////COLOR CODING/////////////////////////////
             let colors = d3.scaleLinear()
-                .domain(d3.range(min_temp,max_temp,
-                    parseInt(Math.abs(max_temp-min_temp)/100)))
-                .range(["#ffffff", "#3e5eba", "#2b83ba",
-                    "#abdda4", "#ffffbf", "#fdae61", "#d7191c"])
+                .domain(d3.range(min,max,
+                    parseInt(Math.abs(max-min)/10)))
+                .range(["#ffffff","#0d1a50", "#3e5eba", "#2b83ba",
+                     "#ffffbf", "#d7191c"])
                 .interpolate(d3.interpolateHcl);
 
-            console.log(colors)
+            // console.log(colors)
 
         //     ////////////////////////////////////////////////////////////
 
@@ -77,7 +77,7 @@
         //     // Step 3 contour generator
             let contours = d3.contours()
             .size([m, n])
-                .thresholds(d3.range(min_temp,max_temp,102)) // threshold is 6 degrees
+                .thresholds(d3.range(min,max,100)) // threshold is 100 degrees
                 (values_T);
 
                 // console.log(contours)
@@ -101,7 +101,7 @@
     }
 
 
-    plot_contour(ctScan_data)
+    plot_contour(ctScan_data,min,max)
 
 </script>
 </body>
