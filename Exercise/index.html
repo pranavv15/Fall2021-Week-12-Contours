@@ -7,6 +7,10 @@
     <script src="https://d3js.org/d3.v6.min.js"></script>
 
     <style>
+        #heading{
+            font-family: sans-serif;
+            text-align: center;
+        }
         #ct
         {
             position: absolute;
@@ -23,7 +27,7 @@
     </style>
 
 </head>
-
+<h1 id="heading">CT Scan Image</h1>
 
 <body>
 <svg width="80vw" viewbox="0 0 1200 1000"></svg>
@@ -64,8 +68,8 @@
             let colors = d3.scaleLinear()
                 .domain(d3.range(min,max,
                     parseInt(Math.abs(max-min)/10)))
-                .range(["#ffffff","#0d1a50", "#3e5eba", "#2b83ba",
-                     "#ffffbf", "#d7191c"])
+                .range(["#ffffff","#ffffff","#0d1a50", "#3e5eba", "#2b83ba",
+                    "#abdda4", "#ffffbf", "#fdae61", "#d7191c"])
                 .interpolate(d3.interpolateHcl);
 
             // console.log(colors)
@@ -77,7 +81,7 @@
         //     // Step 3 contour generator
             let contours = d3.contours()
             .size([m, n])
-                .thresholds(d3.range(min,max,100)) // threshold is 100 degrees
+                .thresholds(d3.range(min,max,150)) // threshold is 100 degrees
                 (values_T);
 
                 // console.log(contours)
